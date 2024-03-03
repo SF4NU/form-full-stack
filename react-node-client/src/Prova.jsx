@@ -3,7 +3,7 @@ import axios from "axios";
 
 function Prova() {
   const [backend, setBackend] = useState([{}]);
-  const URL = "http://localhost:2121/testapi";
+  const URL = "http://localhost:2121/getUsers";
   useEffect(() => {
     const fetchFromMongoDB = async () => {
       try {
@@ -24,11 +24,12 @@ function Prova() {
   return (
     <>
       <section>
-        {typeof backend.users === "undefined" ? (
-          <p>Loading...</p>
-        ) : (
-          backend.users.map((user, i) => <p key={i}>{user}</p>)
-        )}
+        {backend.map((user) => (
+          <div key={user._id}>
+            <p>{user.name}</p>
+            <p>{user.age}</p>
+          </div>
+        ))}
       </section>
     </>
   );
