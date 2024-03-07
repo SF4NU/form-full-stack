@@ -65,7 +65,7 @@ function Form({ setCheckIfLoggedIn }) {
     try {
       if (formData.pwd === pwdCheck && isChecked) {
         const response = await axios.post(
-          "http://localhost:2121/api/users/register",
+          "https://form-react-node.vercel.app/api/users/register",
           formData
         );
         setFormData({
@@ -91,7 +91,7 @@ function Form({ setCheckIfLoggedIn }) {
 
     try {
       const response = await axios.post(
-        "http://localhost:2121/api/users/login",
+        "https://form-react-node.vercel.app/api/users/login",
         loginData
       );
       setLoginData({

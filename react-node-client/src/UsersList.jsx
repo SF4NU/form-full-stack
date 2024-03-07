@@ -7,7 +7,7 @@ function UsersList({ setCheckIfLoggedIn }) {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await axios.get("http://localhost:2121/api/users/getUsers");
+        const res = await axios.get("https://form-react-node.vercel.app/api/users/getUsers");
         setData(res.data);
       } catch (error) {
         console.error(error);
