@@ -2,9 +2,9 @@
   "name": "server",
   "version": "1.0.0",
   "description": "prova react + node",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node server",
+    "start": "node index",
     "dev": "nodemon server"
   },
   "author": "SF4NU",

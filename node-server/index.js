@@ -17,6 +17,10 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("Welcome to the homepage!");
+});
+
 app.use("/api/users", registerRoute);
 app.use("/api/users", getAllUsersRoute);
 app.use("/api/users", loginRoute);
