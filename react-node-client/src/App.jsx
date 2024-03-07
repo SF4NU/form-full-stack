@@ -1,9 +1,11 @@
-import Prova from "./Prova";
+// import Prova from "./Prova";
+import Form from "./Form";
 
 function App() {
   return (
     <>
-      <Prova></Prova>
+      {/* <Prova></Prova> */}
+      <Form></Form>
     </>
   );
 }
