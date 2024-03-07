@@ -1,27 +1,39 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-function Form() {
+function Form({ setCheckIfLoggedIn }) {
   const [formData, setFormData] = useState({
     user: "",
     email: "",
     pwd: "",
   });
+  const [loginData, setLoginData] = useState({
+    user: "",
+    pwd: "",
+  });
+
   const [pwdCheck, setPwdCheck] = useState("");
   const [isChecked, setIsChecked] = useState(false);
+  const [checkBox, setCheckBox] = useState(false);
+  const [changeText, setChangeText] = useState("Già iscritto?");
 
-  function handleChange(e) {
+  function handleChangeRegistration(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  }
+  function handleChangeLogin(e) {
+    setLoginData({ ...loginData, [e.target.name]: e.target.value });
   }
 
   function toCheckPwd(e) {
     setPwdCheck((p) => (p = e.target.value));
-    console.log(pwdCheck);
   }
 
   function changeChecked() {
     setIsChecked(!isChecked);
-    console.log(isChecked);
+  }
+
+  function changeCheckBox() {
+    setCheckBox(!checkBox);
   }
 
   function toLogin() {
@@ -29,6 +41,7 @@ function Form() {
     form.classList.remove("move-form2");
     form.classList.add("move-form");
     setIsChecked(true);
+    setCheckBox(!checkBox);
   }
 
   function toLoginButton() {
@@ -37,14 +50,16 @@ function Form() {
       form.classList.remove("move-form2");
       form.classList.add("move-form");
       setIsChecked(!isChecked);
+      setChangeText((t) => (t = "Registrati"));
     } else {
       form.classList.remove("move-form");
       form.classList.add("move-form2");
       setIsChecked(!isChecked);
+      setChangeText((t) => (t = "Già iscritto?"));
     }
   }
 
-  const handleSubmit = async (e) => {
+  const handleRegistration = async (e) => {
     e.preventDefault();
 
     try {
@@ -58,6 +73,7 @@ function Form() {
           email: "",
           pwd: "",
         });
+        console.log("Status code:", response.status);
         setPwdCheck("");
         toLogin();
       } else if (!isChecked) {
@@ -70,6 +86,29 @@ function Form() {
     }
   };
 
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        "http://localhost:2121/api/users/login",
+        loginData
+      );
+      setLoginData({
+        user: "",
+        pwd: "",
+      });
+      if (response.status === 201) {
+        console.log("Logged in");
+        setCheckIfLoggedIn(true);
+      } else {
+        console.log("No");
+      }
+    } catch (error) {
+      console.error("Login unsuccessful!");
+    }
+  };
+
   return (
     <>
       <section className="container">
@@ -77,12 +116,12 @@ function Form() {
           <div className="div-registration">
             <h1>Registrazione</h1>
           </div>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleRegistration}>
             <div className="info">
               <div className="name">
                 Nome utente:{" "}
                 <input
-                  onChange={handleChange}
+                  onChange={handleChangeRegistration}
                   value={formData.user}
                   type="text"
                   placeholder="utente123"
@@ -92,7 +131,7 @@ function Form() {
               <div className="surname">
                 Email:{" "}
                 <input
-                  onChange={handleChange}
+                  onChange={handleChangeRegistration}
                   value={formData.email}
                   type="text"
                   placeholder="esempio@mail.com"
@@ -102,14 +141,14 @@ function Form() {
               <div className="email">
                 Password:{" "}
                 <input
-                  onChange={handleChange}
+                  onChange={handleChangeRegistration}
                   value={formData.pwd}
                   type="password"
                   placeholder="●●●●●●●●"
                   name="pwd"
                 />
               </div>
-              <div className="tel">
+              <div>
                 Conferma Password:{" "}
                 <input
                   onChange={toCheckPwd}
@@ -124,6 +163,8 @@ function Form() {
                 onClick={changeChecked}
                 value={isChecked}
                 type="checkbox"
+                checked={checkBox}
+                onChange={changeCheckBox}
                 name="check"
                 id="check"
               />
@@ -135,7 +176,7 @@ function Form() {
             <div className="submit">
               <input
                 type="submit"
-                value={"Sign-up"}
+                value={"Registrati"}
                 className="submit-button"></input>
             </div>
           </form>
@@ -143,28 +184,41 @@ function Form() {
             <div>
               <h1>Login</h1>
             </div>
-            <div className="info-2">
-              <div className="username">
-                Username: <input type="text" placeholder="SqualoPazzo34" />
+            <form onSubmit={handleLogin}>
+              <div className="info-2">
+                <div className="username">
+                  Nome Utente:{" "}
+                  <input
+                    onChange={handleChangeLogin}
+                    value={loginData.user}
+                    type="text"
+                    placeholder="utente123"
+                    name="user"
+                  />
+                </div>
+                <div className="password">
+                  Password:{" "}
+                  <input
+                    onChange={handleChangeLogin}
+                    value={loginData.pwd}
+                    type="password"
+                    placeholder="●●●●●●●●"
+                    name="pwd"
+                  />
+                </div>
               </div>
-              <div className="password">
-                Password: <input type="password" placeholder="●●●●●●●●" />
+              <div className="submit">
+                <input
+                  className="submit-button access-button"
+                  type="submit"
+                  value={"Accedi"}></input>
               </div>
-              <div className="password2">
-                Conferma Password:{" "}
-                <input type="password" placeholder="●●●●●●●●" />
-              </div>
-            </div>
-            <div className="submit">
-              <label className="submit-button" type="submit">
-                Sign-in
-              </label>
-            </div>
+            </form>
           </div>
           <div className="second-form">
             <div className="signed">
               <h1 onClick={toLoginButton} className="goToLogin">
-                To Sign-in
+                {changeText}
               </h1>
             </div>
           </div>

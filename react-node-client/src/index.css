@@ -80,7 +80,7 @@ body {
 }
 .signed {
   text-align: center;
-  margin-top: 220px;
+  margin-top: 230px;
   background-color: #5437d5;
   width: 85%;
   border-radius: 20px;
@@ -88,6 +88,7 @@ body {
   margin-right: auto;
   cursor: pointer;
   transition: display 0.5s;
+  padding: 0px 8px;
 }
 .main-form-2 {
   position: absolute;
@@ -123,10 +124,16 @@ body {
   user-select: none;
   cursor: pointer;
   transform: translateY(-6px);
+  border: none;
+  padding: 10px 20px;
+  font-weight: 600;
+}
+.access-button {
+  margin-top: 15px;
 }
 .submit-button:hover {
   opacity: 0.88;
-  scale: 0.95;
+  scale: 1.05;
 }
 .submit-button:active {
   background-color: #5437d5;
@@ -162,3 +169,30 @@ body {
     
   }
 } */
+.list-title {
+  position: absolute;
+  top: 10px;
+}
+.form-list {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+ul {
+  margin-top: 150px;
+  height: 300px;
+  width: 410px;
+  overflow-y: scroll;
+}
+h5 {
+  position: absolute;
+  top: 65px;
+  left: 37px;
+  cursor: pointer;
+}
+h5:hover {
+  text-decoration: underline;
+}
+h5:active {
+  color: rgb(238, 211, 60);
+}
