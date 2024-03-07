@@ -8,6 +8,7 @@ function Form() {
     pwd: "",
   });
   const [pwdCheck, setPwdCheck] = useState("");
+  const [isChecked, setIsChecked] = useState(false);
 
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -18,11 +19,36 @@ function Form() {
     console.log(pwdCheck);
   }
 
+  function changeChecked() {
+    setIsChecked(!isChecked);
+    console.log(isChecked);
+  }
+
+  function toLogin() {
+    const form = document.querySelector(".second-form");
+    form.classList.remove("move-form2");
+    form.classList.add("move-form");
+    setIsChecked(true);
+  }
+
+  function toLoginButton() {
+    const form = document.querySelector(".second-form");
+    if (!isChecked) {
+      form.classList.remove("move-form2");
+      form.classList.add("move-form");
+      setIsChecked(!isChecked);
+    } else {
+      form.classList.remove("move-form");
+      form.classList.add("move-form2");
+      setIsChecked(!isChecked);
+    }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      if (formData.pwd === pwdCheck) {
+      if (formData.pwd === pwdCheck && isChecked) {
         const response = await axios.post(
           "http://localhost:2121/api/users/register",
           formData
@@ -33,6 +59,9 @@ function Form() {
           pwd: "",
         });
         setPwdCheck("");
+        toLogin();
+      } else if (!isChecked) {
+        console.log("You must accept the privacy eula!");
       } else {
         console.log("Password doesnt match");
       }
@@ -46,7 +75,7 @@ function Form() {
       <section className="container">
         <div className="main-form">
           <div className="div-registration">
-            <h1>Registration</h1>
+            <h1>Registrazione</h1>
           </div>
           <form onSubmit={handleSubmit}>
             <div className="info">
@@ -56,7 +85,7 @@ function Form() {
                   onChange={handleChange}
                   value={formData.user}
                   type="text"
-                  placeholder="SqualoPazzo34"
+                  placeholder="utente123"
                   name="user"
                 />
               </div>
@@ -66,7 +95,7 @@ function Form() {
                   onChange={handleChange}
                   value={formData.email}
                   type="text"
-                  placeholder="Rossi"
+                  placeholder="esempio@mail.com"
                   name="email"
                 />
               </div>
@@ -91,7 +120,13 @@ function Form() {
               </div>
             </div>
             <div className="privacy">
-              <input type="checkbox" name="check" id="check" />
+              <input
+                onClick={changeChecked}
+                value={isChecked}
+                type="checkbox"
+                name="check"
+                id="check"
+              />
               <p>
                 Acconsento che i dati forniti saranno trattati nel rispetto
                 delle normative sulla privacy vigenti.
@@ -128,7 +163,9 @@ function Form() {
           </div>
           <div className="second-form">
             <div className="signed">
-              <h1 className="goToLogin">To Sign-in</h1>
+              <h1 onClick={toLoginButton} className="goToLogin">
+                To Sign-in
+              </h1>
             </div>
           </div>
         </div>

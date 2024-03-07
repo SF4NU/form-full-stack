@@ -9,7 +9,7 @@ body {
   align-items: start;
   justify-content: center;
   flex-direction: column;
-  width: 400px;
+  width: 450px;
   margin-left: auto;
   margin-right: auto;
   background-color: #5437d5;
@@ -119,7 +119,7 @@ body {
   color: #5437d5;
   border-radius: 30px;
   transition: opacity ease-out 0.25s, scale ease-out 0.25s,
-    background-color ease-in 0.10s, color ease-in 0.10s;
+    background-color ease-in 0.1s, color ease-in 0.1s;
   user-select: none;
   cursor: pointer;
   transform: translateY(-6px);
@@ -144,16 +144,21 @@ body {
   }
   to {
     transform: translateX(-230px);
-    width: 240px;
+    width: 290px;
   }
 }
 @keyframes move-form-back {
   from {
     transform: translateX(-230px);
-    width: 240px;
+    width: 290px;
   }
   to {
     transform: translateX(0px);
     width: 220px;
   }
 }
+/* @media (max-width: 600px) {
+  .main-form {
+    
+  }
+} */
