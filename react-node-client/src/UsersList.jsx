@@ -7,7 +7,9 @@ function UsersList({ setCheckIfLoggedIn }) {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await axios.get("https://form-react-node.vercel.app/api/users/getUsers");
+        const res = await axios.get(
+          "https://form-react-node.vercel.app/api/users/getUsers"
+        );
         setData(res.data);
       } catch (error) {
         console.error(error);
@@ -20,7 +22,7 @@ function UsersList({ setCheckIfLoggedIn }) {
     <>
       <div className="main-form form-list">
         <div>
-          <h1 className="list-title">Lista Utenti Registrati</h1>
+          <h1 className="list-title">Benvenuto!</h1>
           <h5
             onClick={() => {
               setCheckIfLoggedIn(false);
@@ -28,13 +30,6 @@ function UsersList({ setCheckIfLoggedIn }) {
             className="list-sub-title">
             Logout
           </h5>
-        </div>
-        <div className="list-div">
-          <ul>
-            {data.map((user, index) => (
-              <li key={index}>{user.username}</li>
-            ))}
-          </ul>
         </div>
       </div>
     </>
