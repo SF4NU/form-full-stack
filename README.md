@@ -1,7 +1,5 @@
 # [DEMO](https://sf4nu.github.io/form-full-stack/)
 
-Ecco una possibile descrizione per il repository su GitHub:
-
 ---
 
 # Form React.js & Node.js
