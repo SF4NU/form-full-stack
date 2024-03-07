@@ -3,7 +3,7 @@ import axios from "axios";
 
 function Prova() {
   const [backend, setBackend] = useState([{}]);
-  const URL = "http://localhost:2121/getUsers";
+  const URL = "http://localhost:2121/api/users/getUsers";
   useEffect(() => {
     const fetchFromMongoDB = async () => {
       try {
@@ -24,10 +24,10 @@ function Prova() {
   return (
     <>
       <section>
-        {backend.map((user) => (
-          <div key={user._id}>
-            <p>{user.name}</p>
-            <p>{user.age}</p>
+        {backend.map((user, index) => (
+          <div key={index}>
+            <p>{user.username}</p>
+            <p>{user.password}</p>
           </div>
         ))}
       </section>
